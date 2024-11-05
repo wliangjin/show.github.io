@@ -1,0 +1,111 @@
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+#app {
+  overflow: hidden;
+  padding: 30px;
+  min-height: 100vh;
+  background-image: linear-gradient(
+    #5098fa 0%,
+    #99c2fa 20%,
+    #f7f8fa 35%,
+    #f2f2f2
+  );
+}
+.top-wrap {
+  .logo {
+    width: 180px;
+    height: 53px;
+    margin: 60px auto 12px;
+    background: url(@/assets/img/hxk/logo.svg) no-repeat;
+    background-size: contain;
+  }
+}
+.search-btn {
+  color: rgb(244, 245, 252);
+  font-size: 18px;
+  background: linear-gradient(
+    to right,
+    rgb(47, 165, 254) 0%,
+    rgb(36, 144, 226) 100%
+  );
+  &:hover {
+    filter: brightness(103%);
+  }
+}
+
+.navbar {
+  .icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-right: 16px;
+  }
+  a {
+    flex: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 64px;
+    position: relative;
+    &:hover{
+      color: #4275bd;
+    }
+    &::after {
+      content: "|";
+      position: absolute;
+      right: 0;
+      color: silver;
+    }
+    &:nth-of-type(4)::after{
+      content: '';
+    }
+    &:nth-of-type(1) .icon {
+      background-image: url(@/assets/img/hxk/nav-svg01.svg);
+    }
+    &:nth-of-type(2) .icon {
+      background-image: url(@/assets/img/hxk/nav-svg02.svg);
+    }
+    &:nth-of-type(3) .icon {
+      background-image: url(@/assets/img/hxk/nav-svg03.png);
+    }
+    &:nth-of-type(4) .icon {
+      background-image: url(@/assets/img/hxk/nav-svg04.svg);
+    }
+  }
+}
+
+.hot {
+  a:hover {
+    color: #5098fa;
+  }
+  li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .sort {
+    width: 12px;
+    height: 14px;
+    text-align: center;
+  }
+  .first {
+    color: transparent;
+    background: url(@/assets/img/hxk/first.svg);
+  }
+  .second {
+    color: transparent;
+    background: url(@/assets/img/hxk/second.svg);
+  }
+  .third {
+    color: transparent;
+    background: url(@/assets/img/hxk/third.svg);
+  }
+}
