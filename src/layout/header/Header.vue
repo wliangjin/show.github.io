@@ -1,5 +1,5 @@
 <template>
-	<header class="bg-gray-50 h-14 flex items-center justify-between px-6 sticky top-0 z-[100]">
+	<header class="container bg-gray-50 h-14 flex items-center justify-between px-6 sticky top-0 z-[100]">
 		<div class="left-nav flex items-center">
 			<div class="logo w-40 flex items-center" @click="() => router.push({ path: 'home' })">
 				<a href="../page/index.html"><img src="@/assets/img/logo.png" alt="" class="inline-block w-11" />

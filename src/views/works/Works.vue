@@ -23,7 +23,8 @@
 									<span class="text-gray-300 mx-3 scale-75">|</span>
 									<ul
 										class="nav-list-tags flex flex-1 overflow-hidden [&>li]:mr-3 [&>li>a]:text-gray-600 [&>li>a:hover]:text-blue-600">
-										<li v-for="navtag in item.types" :key="navtag.tid"><a href="#">{{ navtag.tname }}
+										<li v-for="navtag in item.types" :key="navtag.tid"><a href="#">{{ item.name == '面积' ?
+											navtag.tname + `m&sup2;` : navtag.tname }}
 											</a></li>
 									</ul>
 									<div class="tags-right-arrow text-gray-300 scale-y-125 scale-x-50 font-bold">></div>
@@ -62,14 +63,21 @@
 						<div class="title absolute left-3 top-3 px-4 py-1 bg-gray-300/10 text-white text-base rounded-md">
 							<p class="font-bold">视频动画</p>
 						</div>
-						<video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted
-							src="../../assets/img/works/works-video02.mp4"></video>
+						<div class="swipe-container flex absolute inset-0" :class="{ slideAnimate: !stopAnimate }"
+							:style="{ transform: `translateX(${currentIdx * -100}%)` }">
+							<img v-for="(img, i) in swipeImgs" :key="i" :src="img.src" alt="" srcset="" class="w-full">
+							<!-- <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted
+								src="../../assets/img/works/works-video02.mp4"></video> -->
+						</div>
 						<div class="bottom-item flex justify-between w-full absolute bottom-0 p-5">
 							<div class="bottom-left">
 								<div class="title text-white [&>p]:leading-7">
-									<p class="font-bold text-sm text-gray-200">今日推荐<span class="idx">1</span>/<span class="total">1</span>
+									<p class="font-bold text-sm text-gray-200">今日推荐<span class="idx">
+											{{ currentIdx }}
+										</span>/<span class="total">{{ swipeImgs.length - 1 }}</span>
 									</p>
-									<p class="font-bold text-lg">福州帝景苑公寓120m<sup>2</sup>两室</p>
+									<p class="font-bold text-lg">{{ swipeImgs[currentIdx].title }}
+									</p>
 								</div>
 							</div>
 							<div class="bottom-right self-end">
@@ -79,6 +87,9 @@
 								</div>
 							</div>
 						</div>
+
+						<button class="bt-prev" @click="prev()">&#8636;</button>
+						<button class="bt-next" @click="next()">&#8640;</button>
 					</div>
 				</div>
 			</div>
@@ -96,7 +107,7 @@
 
 			<div class="main w-[94%] mx-auto mt-5">
 				<div class="show1-wrap flex justify-between mb-6">
-					<div class="show1-left relative w-[calc(66.666%-8px)] pb-[26%] overflow-hidden rounded-xl relative">
+					<div class="show1-left relative w-[calc(66.666%-8px)] pb-[26%] overflow-hidden rounded-xl">
 						<div class="show1-left-inner absolute inset-0">
 							<div class="title absolute left-3 top-3 px-3 py-2 bg-gray-800/80 text-white text-base rounded-md">
 								<p class="font-bold text-sm">大咖秀</p>
@@ -165,11 +176,199 @@
 
 <script setup lang="ts">
 import { category, showItems } from '@/data/works';
+import { onBeforeMount, Ref, ref } from 'vue';
 const getImg = (imgid: string) => {
 	return new URL(`../../assets/img/works/item${imgid}.webp`, import.meta.url).href
 }
+const swipeImgs = [
+	{
+		src: new URL('../../assets/img/works/swipe-right01.webp', import.meta.url).href,
+		title: '水岸蓝桥中古风'
+	},
+	{
+		src: new URL('../../assets/img/works/swipe-right02.webp', import.meta.url).href,
+		title: '一江两岸'
+	},
+	{
+		src: new URL('../../assets/img/works/swipe-right03.webp', import.meta.url).href,
+		title: '福州帝景苑公寓128㎡1室'
+	},
+	{
+		src: new URL('../../assets/img/works/swipe-right01.webp', import.meta.url).href,
+		title: '水岸蓝桥中古风'
+	},
+]
+const currentIdx = ref(0)
+const stopAnimate = ref(false)
+const goNext = () => {
+	currentIdx.value = (currentIdx.value + 1) % swipeImgs.length
+	currentIdx.value >= swipeImgs.length - 1 && setTimeout(() => {
+		currentIdx.value = 0
+		stopAnimate.value = true
+		console.log(currentIdx.value);
+	}, 500);
+	stopAnimate.value = false
+}
+const goPrev = () => {
+	currentIdx.value--
+	if (currentIdx.value < 0) {
+		handleOver()
+		stopAnimate.value = true
+		setTimeout(() => {
+			currentIdx.value--
+			stopAnimate.value = false
+		}, 0);
+	}
+}
+const handleOver = () => {
+	if (currentIdx.value < 0) {
+		currentIdx.value = swipeImgs.length - 1
+	}
+	if (currentIdx.value >= swipeImgs.length) {
+		currentIdx.value = 0
+	}
+}
+setInterval(() => {
+	next()
+}, 3000)
+const debounce = function (fn: Function, wait: number) {
+	let timer: any = null
+	return () => {
+		const context = this
+		!timer && fn(context, arguments)
+		timer = setTimeout(function () {
+			clearTimeout(timer)
+			timer = null
+		}, wait)
+	}
+}
+const next = debounce(goNext, 500)
+const prev = debounce(goPrev, 500)
+// interface SwiperConfig {
+// 	autoplay?: boolean;
+// 	timeout?: number;
+// 	duration?: number;
+// 	defaultIndex?: number;
+// }
+// class Swiper {
+// 	currentIdx: Ref<number> = ref(0)
+// 	stopAnimate: Ref<boolean> = ref(false)
+// 	images: any[] = [];
+// 	config = {
+// 		autoplay: false,
+// 		timeout: 3000,
+// 		duration: 500,
+// 		defaultIndex: 0
+// 	}
+// 	constructor(images: any[], config: {}) {
+// 		this.config = Object.assign(this.config, config)
+// 		this.images = images;
+// 		this.currentIdx.value = this.config.defaultIndex
+// 		this.config.duration = this.config.duration - 5
+// 		this.initSwiper()
+// 	}
+// 	initSwiper() {
+// 		this.images.length > 1 ? this.images = [...this.images, this.images[0]] : null
+// 		this.config.autoplay && this.autoPlay()
+// 		console.log(this.images);
+
+// 	}
+// 	goNext() {
+// 		this.currentIdx.value++
+// 		this.currentIdx.value >= swipeImgs.length - 1 && setTimeout(() => {
+// 			this.stopAnimate.value = true
+// 			this.currentIdx.value = 0
+// 			console.log(this.currentIdx.value);
+// 		}, this.config.duration);
+// 		this.stopAnimate.value = false
+// 	}
+// 	debounceGoNext = this.debounce(this.goNext, this.config.duration)
+// 	goPrev() {
+// 		this.currentIdx.value--
+// 		if (this.currentIdx.value < 0) {
+// 			this.handleOver()
+// 			this.stopAnimate.value = true
+// 			setTimeout(() => {
+// 				this.currentIdx.value--
+// 				this.stopAnimate.value = false
+// 			}, 0);
+// 		}
+// 	}
+// 	debouncegoPrev = this.debounce(this.goPrev, this.config.duration)
+// 	handleOver() {
+// 		if (this.currentIdx.value < 0) {
+// 			this.currentIdx.value = swipeImgs.length - 1
+// 		}
+// 		if (this.currentIdx.value >= swipeImgs.length) {
+// 			this.currentIdx.value = 0
+// 		}
+// 		// this.currentIdx.value = (this.currentIdx.value + 1) % this.images.length
+// 	}
+// 	autoPlay() {
+// 		setInterval(() => {
+// 			this.goNext()
+// 		}, this.config.timeout);
+// 	}
+// 	// 防抖函数
+// 	debounce(fn: Function, wait: number) {
+// 		let lock = true, timer: any = null
+// 		clearTimeout(timer)
+// 		return () => {
+// 			const context = this
+// 			if (lock) {
+// 				fn.apply(context, arguments)
+// 				lock = false
+// 			} else {
+// 				setTimeout(function () {
+// 					fn.apply(context, arguments)
+// 					clearTimeout(timer)
+// 					lock = true
+// 				}, wait);
+// 			}
+// 		}
+// 	}
+// }
+// const swiper = new Swiper(swipeImgs, {})
 </script>
 
 <style lang="less" scoped>
 @import url(./Works.less);
+
+.design-right {
+	&:hover button {
+		display: block;
+	}
+
+	button {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		position: absolute;
+		background: rgb(232, 232, 232);
+		font-weight: bolder;
+		color: rgb(20, 43, 70);
+		display: none;
+
+		&:hover {
+			color: rgb(89, 85, 211);
+			background: rgb(230, 230, 230);
+		}
+
+		&:nth-of-type(1) {
+			top: 50%;
+			left: 3%;
+		}
+
+		&:nth-of-type(2) {
+			top: 50%;
+			right: 2%;
+		}
+
+	}
+}
+
+.slideAnimate {
+	// transform: translateX(-200%)
+	transition: all ease-in-out .5s;
+}
 </style>

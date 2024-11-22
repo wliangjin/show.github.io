@@ -2,19 +2,24 @@
 	<div class="container min-h-[100vh] w-[70%] mx-auto">
 		<div class="topbar mt-7 mb-12">
 			<ul @click="(e) => switchType(e)" class="flex justify-center text-2xl font-bold text-gray-500">
-				<li><a href="#">个人版</a></li>
-				<li class="active"><a href="#">企业版</a></li>
-				<li><a href="#">教育版</a></li>
+				<li v-for="(item, v) of price" @click="() => {
+					version = v
+				}"><a href="#">{{ item.title }}</a>
+				</li>
+				<!-- <li><a href="#">{{ price.personal.title }}</a></li>
+				<li class="active"><a href="#">{{ price.enterprise.title }}</a></li> -->
+				<!-- <li><a href="#">教育版</a></li> -->
 			</ul>
 		</div>
-		<h1 class="text-4xl text-center font-bold text-gray-700 mb-12">全链路协作各行业覆盖，打造专业解决方案</h1>
+		<h1 class="text-4xl text-center font-bold text-gray-700 mb-12">{{ price[version].common }}</h1>
 
 		<div class="main">
-			<div class="main-inner flex justify-between pb-[100px]" @mouseover="(e) => handleOver(e)">
-				<div v-for="(item, i) in price" :key="item.id" class="box flex flex-col" :class="{ active: i == 0 }">
+			<div class="main-inner flex justify-center pb-[100px]" @mouseover="(e) => handleOver(e)">
+				<div v-for="(item, i) in price[version].version" :key="item.id" class="box flex flex-col mx-3"
+					:class="{ active: i == 0 }">
 					<div class="title text-xl font-bold text-gray-700">{{ item.title }}</div>
 					<div class="desc">{{ item.common }}</div>
-					<button>立即咨询</button>
+					<button>{{ version == 'personal' ? item.btnText : '立即咨询' }}</button>
 					<div class="advantage px-3">
 						<div v-for="a in item.advantage" :key="a.aid" class="item flex text-xs tracking-wider">
 							<div class="icon mr-2">
@@ -35,6 +40,9 @@
 
 <script setup lang="ts">
 import { price } from '@/data/price';
+import { ref } from 'vue';
+const version = ref('personal')
+
 const switchType = (e: Event) => {
 	const target = e.target as HTMLElement
 	const currentTarget = e.currentTarget as HTMLElement

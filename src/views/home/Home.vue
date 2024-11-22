@@ -24,7 +24,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="main bg-gray-100">
+	<div class="main container bg-gray-100">
 		<!-- 下方展示列表，内容：介绍优势 -->
 		<div class="service min-h-[100vh]">
 			<div class="service-contnet w-[76%] mx-auto py-20">
@@ -35,7 +35,7 @@
 				<p class="desc text-center text-base text-gray-500 tracking-[3px] mb-14">提供全空间创作和全链路设计、营销以及管理服务</p>
 				<div class="items">
 					<ul class="flex justify-between flex-wrap">
-						<li>
+						<li class="md:w-32">
 							<a href="#">
 								<div class="top">
 									<div class="left-tag">
