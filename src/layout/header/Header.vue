@@ -173,4 +173,9 @@ header {
 		display: none;
 	}
 }
+@media screen and (max-width: 768px) {
+	header{
+		display: none;
+	}
+}
 </style>

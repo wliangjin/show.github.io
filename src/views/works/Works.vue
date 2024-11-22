@@ -73,7 +73,7 @@
 							<div class="bottom-left">
 								<div class="title text-white [&>p]:leading-7">
 									<p class="font-bold text-sm text-gray-200">今日推荐<span class="idx">
-											{{ currentIdx }}
+											{{ currentIdx == 0 ? 1 : currentIdx }}
 										</span>/<span class="total">{{ swipeImgs.length - 1 }}</span>
 									</p>
 									<p class="font-bold text-lg">{{ swipeImgs[currentIdx].title }}
@@ -88,8 +88,12 @@
 							</div>
 						</div>
 
-						<button class="bt-prev" @click="prev()">&#8636;</button>
-						<button class="bt-next" @click="next()">&#8640;</button>
+						<button class="bt-prev" @click="prev()"><el-icon>
+								<Back />
+							</el-icon></button>
+						<button class="bt-next" @click="next()"><el-icon>
+								<Right />
+							</el-icon></button>
 					</div>
 				</div>
 			</div>
@@ -231,7 +235,7 @@ const handleOver = () => {
 setInterval(() => {
 	next()
 }, 3000)
-const debounce = function (fn: Function, wait: number) {
+const debounce = function (this: any, fn: Function, wait: number) {
 	let timer: any = null
 	return () => {
 		const context = this
@@ -343,14 +347,14 @@ const prev = debounce(goPrev, 500)
 		width: 36px;
 		height: 36px;
 		border-radius: 50%;
+		font-size: 20px;
 		position: absolute;
 		background: rgb(232, 232, 232);
-		font-weight: bolder;
 		color: rgb(20, 43, 70);
 		display: none;
 
 		&:hover {
-			color: rgb(89, 85, 211);
+			color: rgb(58, 95, 233);
 			background: rgb(230, 230, 230);
 		}
 

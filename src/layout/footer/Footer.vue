@@ -7,7 +7,7 @@
 					:class="{ active: currentIndex == i }">
 					<div class="title font-bold text-lg text-gray-500">{{ img.title }}</div>
 					<div class="img-item">
-						<img class="inline-block max-w-[1152px] h-auto" :src="img.src" :alt="img.title">
+						<img class="inline-block max-w-[1152px] h-auto w-full" :src="img.src" :alt="img.title">
 					</div>
 				</div>
 			</div>
@@ -42,7 +42,7 @@ let timer: any = null
 const autoPlay = () => {
 	timer = setInterval(() => {
 		currentIndex.value = (currentIndex.value + 1) % imgs.length
-	}, 1500)
+	}, 2500)
 	return
 }
 // const stop = () => {

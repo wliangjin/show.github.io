@@ -1,5 +1,27 @@
 let aid = 1001
-export const price = {
+interface priceVersion {
+	id: number
+	title: string
+	common: string
+	btnText?: string
+	advantage: Array<priceAdvantage>
+}
+interface priceAdvantage {
+	aid: number
+	title: string
+	[key: string]: string | number
+}
+interface priceType {
+	title: string
+	common: string
+	version: Array<priceVersion>
+}
+interface price {
+	personal: priceType
+	enterprise: priceType
+	[key: string]: priceType
+}
+export const price: price = {
 	personal: {
 		title: '个人版',
 		common: '专注设计，提升设计效率',

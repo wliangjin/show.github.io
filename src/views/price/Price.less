@@ -29,12 +29,12 @@
 .main-inner {
   .box {
     width: calc(33.999% - 24px);
-    background: white;
+    background-color: white;
     padding: 30px;
     box-sizing: border-box;
     border-radius: 16px;
     box-shadow: 0px 8px 10px rgba(43, 116, 226, 0.082);
-    transition: width 0.3s ease,background 0.3s ease;
+    transition: background-color 0.3s ease;
 
     &:hover {
       // transform: translateY(-10px) scale(1.02);
@@ -46,18 +46,29 @@
     :is(.title, .desc) {
       color: white !important;
     }
-    :is(.icon) {
-      color: rgb(26, 100, 150);
-    }
     .desc {
       background: rgb(26, 122, 248);
     }
-    color: white !important;
+    color: white;
     background: linear-gradient(
       to right bottom,
       rgb(49, 168, 254) 0%,
       rgb(40, 155, 237) 100%
     );
+  }
+  .boxbg {
+    background: linear-gradient(
+      120deg,
+      rgb(248, 147, 172) 0%,
+      rgb(242, 103, 108) 36%,
+      rgb(241, 92, 114) 50%,
+      rgb(186, 87, 206) 100%
+    ) !important;
+    .desc {
+      background: rgba(222, 231, 242, 0.449);
+      transform: scale(1.08);
+      font-weight: bold;
+    }
   }
   :is(.title, .desc) {
     text-align: center;
@@ -74,14 +85,6 @@
     font-size: 12px;
     color: rgb(99, 99, 99);
     margin: 40px 0;
-  }
-
-  .icon {
-    /* display: inline-block; */
-    color: rgb(104, 169, 237);
-    font-size: 14px;
-    text-align: left;
-    margin: 1px 8px 0 0;
   }
 
   button {
