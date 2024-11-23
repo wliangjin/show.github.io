@@ -169,6 +169,22 @@
 </template>
 
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted } from 'vue';
+const desableRightClick = (e: Event) => {
+	e.preventDefault()
+}
+const desableSelect = (e: Event) => {
+	e.preventDefault()
+}
+onMounted(() => {
+	window.addEventListener('contextmenu', desableRightClick)
+	window.addEventListener('selectstart', desableSelect)
+})
+onBeforeUnmount(() => {
+	window.removeEventListener('contextmenu', desableRightClick)
+	window.removeEventListener('selectstart', desableSelect)
+	console.log('beforeUnmount');
+})
 
 </script>
 

@@ -15,6 +15,13 @@ const routes: RouteRecordRaw[] = [
 				}
 			},
 			{
+				path: 'jzsj',
+				component: () => import('@/views/jzsj/Jzsj.vue'),
+				meta: {
+					title: '家装设计'
+				}
+			},
+			{
 				path: 'works',
 				component: () => import('@/views/works/Works.vue'),
 				meta: {

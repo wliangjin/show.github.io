@@ -106,7 +106,7 @@
 				<div class="node-item"><button type="button">猜你喜欢</button></div>
 			</div>
 
-			<div class="main w-[94%] mx-auto mt-5">
+			<div class="main w-[94%] mx-auto mt-5" @click.prevent="">
 				<div class="show1-wrap flex justify-between mb-6">
 					<div class="show1-left relative w-[calc(66.666%-8px)] pb-[26%] overflow-hidden rounded-xl">
 						<div class="show1-left-inner absolute inset-0">

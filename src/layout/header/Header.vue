@@ -81,25 +81,25 @@ const navitems = [
 	},
 	{
 		key: key++,
-		path: '#',
-		label: '产品',
-		children: [
-			{
-				key: key++,
-				path: '#',
-				label: '户型设计',
-			},
-			{
-				key: key++,
-				path: '#',
-				label: '硬装设计',
-			},
-			{
-				key: key++,
-				path: '#',
-				label: '橱衣柜设计',
-			}
-		]
+		path: '/jzsj',
+		label: '家装设计',
+		// children: [
+		// 	{
+		// 		key: key++,
+		// 		path: '#',
+		// 		label: '户型设计',
+		// 	},
+		// 	{
+		// 		key: key++,
+		// 		path: '#',
+		// 		label: '硬装设计',
+		// 	},
+		// 	{
+		// 		key: key++,
+		// 		path: '#',
+		// 		label: '橱衣柜设计',
+		// 	}
+		// ]
 	},
 	{
 		key: key++,

@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<!-- 主体内容 -->
-			<div class="main-content w-[80%] mx-auto">
+			<div class="main-content w-[80%] mx-auto" @click.prevent="">
 				<!-- 图标文字导航条 -->
 				<div class="navbar bg-white mt-[42px] rounded-xl flex justify-between items-center text-center">
 					<a href="#">
