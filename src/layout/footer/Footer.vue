@@ -1,18 +1,18 @@
 <template>
-	<footer class="bg-white pt-12 container">
-		<div class="footer-swipe relative text-center">
-			<div class="swipe-wrap h-[174px]">
-				<div v-for="(img, i) in imgs" :key="i"
-					class="img-wrap  overflow-auto transition-all duration-600 absolute inset-0"
+	<footer class="bg-white pt-8 container">
+		<div class="footer-swipe relative">
+			<div class="swipe-wrap text-center" :style="{ height: swipeWrapHeight + 'px' }" ref="swipeWrap"
+				@mouseenter="stop()" @mouseleave="autoPlay()">
+				<div v-for="(img, i) in imgs" :key="i" class="img-wrap absolute inset-x-0 transition-all duration-600"
 					:class="{ active: currentIndex == i }">
 					<div class="title font-bold text-lg text-gray-500">{{ img.title }}</div>
 					<div class="img-item">
-						<img class="inline-block max-w-[1152px] h-auto w-full" :src="img.src" :alt="img.title">
+						<img class="inline-block max-w-[1152px] w-[90%]" :src="img.src" :alt="img.title" @load="setElHeight()">
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="pagination flex justify-center mb-8" @mouseover="timer = null">
+		<div class="pagination flex justify-center mb-8">
 			<button class="w-2 h-2 bg-gray-200 rounded-full mx-2" v-for="(dot, i) in imgs" :key="i"
 				:class="{ dot: currentIndex == i }" @click="currentIndex = i"></button>
 		</div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const imgs = [
 	{
@@ -37,22 +37,30 @@ const imgs = [
 		title: '酷家乐·大家居行业的共同选择'
 	},
 ]
+
+const swipeWrap = ref()
+
+const swipeWrapHeight = ref(0)
+const setElHeight = () => {
+	// console.log(swipeWrap.value?.children[0].offsetHeight);
+	// console.log(swipeWrapHeight.value);
+	swipeWrapHeight.value = swipeWrap.value?.children[0].offsetHeight
+}
+window.addEventListener('resize', () => {
+	setElHeight()
+})
 const currentIndex = ref(0)
 let timer: any = null
 const autoPlay = () => {
 	timer = setInterval(() => {
 		currentIndex.value = (currentIndex.value + 1) % imgs.length
 	}, 2500)
-	return
 }
-// const stop = () => {
-// 	console.log('stop');
-// 	clearInterval(timer)
-// }
-// const start = () => {
-// 	console.log('start');
-// 	autoPlay()
-// }
+const stop = () => {
+	clearInterval(timer)
+	timer = null
+}
+
 onMounted(() => {
 	autoPlay()
 })
@@ -67,9 +75,18 @@ onMounted(() => {
 .dot {
 	background: #627be0;
 }
-footer{
+
+footer {
 	box-shadow: 0 -1px 20px 0 rgba(116, 116, 116, 0.1);
 }
+
+.swipe-wrap {
+	&::after {
+		content: "";
+		overflow: hidden;
+	}
+}
+
 // .img-wrap {
 // 	display: flex;
 // }

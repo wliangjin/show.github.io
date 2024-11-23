@@ -5,10 +5,8 @@
 				<a href="../page/index.html"><img src="@/assets/img/logo.png" alt="" class="inline-block w-11" />
 					<span class="text-blue-800/70 font-bold text-lg">心居设计</span></a>
 			</div>
-			<ul class="menu flex">
-				<li>
-					<a href="../page/index.html"><span></span></a>
-				</li>
+			<ul class="menu">
+
 				<li v-for="item in navitems">
 					<router-link :to="item.path">{{ item.label }}<span v-show="item.children">&gt;</span></router-link>
 					<ul v-if="item.children" class="submenu">
@@ -20,6 +18,12 @@
 		<div class="right-action" v-if="!alredyLogin">
 			<button class="btn" @click="() => { dialogVisible = true, authType = 1 }">登录</button>
 			<button class="btn" @click="() => { dialogVisible = true, authType = 2 }">注册</button>
+		</div>
+
+		<div class="mobile-menu text-neutral-600 absolute top-0 right-5 hidden">
+			<el-icon :size="32">
+				<Menu />
+			</el-icon>
 		</div>
 		<div class="profile" v-if="alredyLogin">
 			<div class="avatar flex items-center">
@@ -170,11 +174,6 @@ header {
 	}
 
 	:deep(.el-dialog__header) {
-		display: none;
-	}
-}
-@media screen and (max-width: 768px) {
-	header{
 		display: none;
 	}
 }

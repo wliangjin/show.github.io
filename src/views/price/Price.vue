@@ -1,5 +1,5 @@
 <template>
-	<div class="container min-h-[100vh] w-[70%] mx-auto">
+	<div class="container min-h-[100vh] w-[80%] mx-auto">
 		<div class="topbar mt-7 mb-12">
 			<ul class="flex justify-center text-2xl font-bold text-gray-500">
 				<li :class="{ active: k == version }" v-for="(v, k) of price" :key="k" @click.prevent="() => {
@@ -16,7 +16,8 @@
 		<div class="main">
 			<div class="main-inner flex justify-center pb-[100px]">
 				<div v-for="(item, i) in price[version].version" :key="item.id" class="box flex flex-col mx-3"
-					:class="{ active: i == boxIdx, boxbg: version == 'personal' && i == boxIdx }" @mouseenter="() => boxIdx = i">
+					:class="{ active: i == boxIdx, boxbg: version == 'personal' && i == boxIdx }"
+					:style="{ width: version == 'personal' ? '284px' : '320px' }" @mouseenter="() => boxIdx = i">
 					<div class="title text-xl font-bold text-gray-700">{{ item.title }}</div>
 					<div class="desc">{{ item.common }}</div>
 					<button>{{ version == 'personal' ? item.btnText : '立即咨询' }}</button>
@@ -77,5 +78,16 @@ const boxIdx = ref(0)
 <style lang="less" scoped>
 @import url(./Price.less);
 
+@media screen and (max-width: 1024px) {
+	.container {
+		width: 90%;
+	}
 
+	.main-inner {
+		flex-flow: wrap;
+		.box {
+			width: 48%;
+		}
+	}
+}
 </style>

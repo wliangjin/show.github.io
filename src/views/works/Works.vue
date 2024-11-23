@@ -59,7 +59,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="design-right w-[75%] pb-[30%] overflow-hidden rounded-xl relative">
+					<div class="design-right w-[75%] pb-[30%] overflow-hidden rounded-xl relative" @mouseenter="stopSlide()"
+						@mouseleave="autoplay()">
 						<div class="title absolute left-3 top-3 px-4 py-1 bg-gray-300/10 text-white text-base rounded-md">
 							<p class="font-bold">视频动画</p>
 						</div>
@@ -73,7 +74,7 @@
 							<div class="bottom-left">
 								<div class="title text-white [&>p]:leading-7">
 									<p class="font-bold text-sm text-gray-200">今日推荐<span class="idx">
-											{{ currentIdx == 0 ? 1 : currentIdx }}
+											{{ currentIdx == swipeImgs.length ? 1 : currentIdx + 1 }}
 										</span>/<span class="total">{{ swipeImgs.length - 1 }}</span>
 									</p>
 									<p class="font-bold text-lg">{{ swipeImgs[currentIdx].title }}
@@ -88,12 +89,8 @@
 							</div>
 						</div>
 
-						<button class="bt-prev" @click="prev()"><el-icon>
-								<Back />
-							</el-icon></button>
-						<button class="bt-next" @click="next()"><el-icon>
-								<Right />
-							</el-icon></button>
+						<button class="bt-prev" @click="prev()">&#8636;</button>
+						<button class="bt-next" @click="next()">&#8640;</button>
 					</div>
 				</div>
 			</div>
@@ -180,7 +177,7 @@
 
 <script setup lang="ts">
 import { category, showItems } from '@/data/works';
-import { onBeforeMount, Ref, ref } from 'vue';
+import { ref } from 'vue';
 const getImg = (imgid: string) => {
 	return new URL(`../../assets/img/works/item${imgid}.webp`, import.meta.url).href
 }
@@ -232,9 +229,17 @@ const handleOver = () => {
 		currentIdx.value = 0
 	}
 }
-setInterval(() => {
-	next()
-}, 3000)
+let timer: any = null
+const autoplay = () => {
+	timer = setInterval(() => {
+		next()
+	}, 3000)
+}
+autoplay()
+const stopSlide = () => {
+	clearInterval(timer)
+	timer = null
+}
 const debounce = function (this: any, fn: Function, wait: number) {
 	let timer: any = null
 	return () => {
@@ -246,93 +251,8 @@ const debounce = function (this: any, fn: Function, wait: number) {
 		}, wait)
 	}
 }
-const next = debounce(goNext, 500)
-const prev = debounce(goPrev, 500)
-// interface SwiperConfig {
-// 	autoplay?: boolean;
-// 	timeout?: number;
-// 	duration?: number;
-// 	defaultIndex?: number;
-// }
-// class Swiper {
-// 	currentIdx: Ref<number> = ref(0)
-// 	stopAnimate: Ref<boolean> = ref(false)
-// 	images: any[] = [];
-// 	config = {
-// 		autoplay: false,
-// 		timeout: 3000,
-// 		duration: 500,
-// 		defaultIndex: 0
-// 	}
-// 	constructor(images: any[], config: {}) {
-// 		this.config = Object.assign(this.config, config)
-// 		this.images = images;
-// 		this.currentIdx.value = this.config.defaultIndex
-// 		this.config.duration = this.config.duration - 5
-// 		this.initSwiper()
-// 	}
-// 	initSwiper() {
-// 		this.images.length > 1 ? this.images = [...this.images, this.images[0]] : null
-// 		this.config.autoplay && this.autoPlay()
-// 		console.log(this.images);
-
-// 	}
-// 	goNext() {
-// 		this.currentIdx.value++
-// 		this.currentIdx.value >= swipeImgs.length - 1 && setTimeout(() => {
-// 			this.stopAnimate.value = true
-// 			this.currentIdx.value = 0
-// 			console.log(this.currentIdx.value);
-// 		}, this.config.duration);
-// 		this.stopAnimate.value = false
-// 	}
-// 	debounceGoNext = this.debounce(this.goNext, this.config.duration)
-// 	goPrev() {
-// 		this.currentIdx.value--
-// 		if (this.currentIdx.value < 0) {
-// 			this.handleOver()
-// 			this.stopAnimate.value = true
-// 			setTimeout(() => {
-// 				this.currentIdx.value--
-// 				this.stopAnimate.value = false
-// 			}, 0);
-// 		}
-// 	}
-// 	debouncegoPrev = this.debounce(this.goPrev, this.config.duration)
-// 	handleOver() {
-// 		if (this.currentIdx.value < 0) {
-// 			this.currentIdx.value = swipeImgs.length - 1
-// 		}
-// 		if (this.currentIdx.value >= swipeImgs.length) {
-// 			this.currentIdx.value = 0
-// 		}
-// 		// this.currentIdx.value = (this.currentIdx.value + 1) % this.images.length
-// 	}
-// 	autoPlay() {
-// 		setInterval(() => {
-// 			this.goNext()
-// 		}, this.config.timeout);
-// 	}
-// 	// 防抖函数
-// 	debounce(fn: Function, wait: number) {
-// 		let lock = true, timer: any = null
-// 		clearTimeout(timer)
-// 		return () => {
-// 			const context = this
-// 			if (lock) {
-// 				fn.apply(context, arguments)
-// 				lock = false
-// 			} else {
-// 				setTimeout(function () {
-// 					fn.apply(context, arguments)
-// 					clearTimeout(timer)
-// 					lock = true
-// 				}, wait);
-// 			}
-// 		}
-// 	}
-// }
-// const swiper = new Swiper(swipeImgs, {})
+const next = debounce(goNext, 800)
+const prev = debounce(goPrev, 800)
 </script>
 
 <style lang="less" scoped>
@@ -350,7 +270,7 @@ const prev = debounce(goPrev, 500)
 		font-size: 20px;
 		position: absolute;
 		background: rgb(232, 232, 232);
-		color: rgb(20, 43, 70);
+		color: rgba(72, 72, 72, 0.797);
 		display: none;
 
 		&:hover {
