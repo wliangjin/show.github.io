@@ -74,7 +74,7 @@
 							<div class="bottom-left">
 								<div class="title text-white [&>p]:leading-7">
 									<p class="font-bold text-sm text-gray-200">今日推荐<span class="idx">
-											{{ currentIdx == swipeImgs.length ? 1 : currentIdx + 1 }}
+											{{ currentIdx == swipeImgs.length - 1 ? 1 : currentIdx + 1 }}
 										</span>/<span class="total">{{ swipeImgs.length - 1 }}</span>
 									</p>
 									<p class="font-bold text-lg">{{ swipeImgs[currentIdx].title }}
@@ -113,18 +113,20 @@
 							<div class="title absolute left-3 top-3 px-3 py-2 bg-gray-800/80 text-white text-base rounded-md">
 								<p class="font-bold text-sm">大咖秀</p>
 							</div>
-							<video autoplay loop muted src="../../assets/img/works/show1-left.mp4"
+							<video autoplay loop muted :src="vedios[vedioIdx].src"
 								class="w-full h-full object-cover absolute inset-0"></video>
+							<button class="bt-prev" @click="debounceVedio('left')">&#8636;</button>
+							<button class="bt-next" @click="debounceVedio('right')">&#8640;</button>
 							<div class="bottom-item absolute w-full bottom-0 p-5">
 								<div class="bottom-left text-white/90">
 									<div class="title flex items-center">
 										<div class="mini-circle bg-indigo-300 w-3 h-3 rounded-full mr-1 opacity-50"></div>
-										<div class="font-bold"><a href="#">Minthqpc</a></div>
+										<div class="font-bold"><a href="#">{{ vedios[vedioIdx].designer }}</a></div>
 										<div class="w-[50px] h-[20px] ml-2 bg-cover"
 											style="background: url(../img/works/xinshou.webp) no-repeat;background-size: cover;">
 										</div>
 									</div>
-									<p class="text-sm">丝绒馥语-法式中古166㎡</p>
+									<p class="text-sm">{{ vedios[vedioIdx].common }}</p>
 								</div>
 							</div>
 						</div>
@@ -206,7 +208,6 @@ const goNext = () => {
 	currentIdx.value >= swipeImgs.length - 1 && setTimeout(() => {
 		currentIdx.value = 0
 		stopAnimate.value = true
-		console.log(currentIdx.value);
 	}, 500);
 	stopAnimate.value = false
 }
@@ -242,9 +243,9 @@ const stopSlide = () => {
 }
 const debounce = function (this: any, fn: Function, wait: number) {
 	let timer: any = null
-	return () => {
-		const context = this
-		!timer && fn(context, arguments)
+	return (...args: any) => {
+		// const context = this
+		!timer && fn(args)
 		timer = setTimeout(function () {
 			clearTimeout(timer)
 			timer = null
@@ -253,12 +254,38 @@ const debounce = function (this: any, fn: Function, wait: number) {
 }
 const next = debounce(goNext, 800)
 const prev = debounce(goPrev, 800)
+const vedioIdx = ref(0)
+// const switchLeftVedio = () => {
+// 	vedioIdx.value = (vedioIdx.value + 1) % vedios.length
+// }
+// const switchRightVedio = () => {
+// 	vedioIdx.value = (vedioIdx.value - 1) % vedios.length
+// }
+const switchVedio = function (direction: 'left' | 'right') {
+	direction == 'left' ?
+		vedioIdx.value = (vedioIdx.value - 1 < 0 ? 1 : vedioIdx.value - 1) % vedios.length :
+		vedioIdx.value = (vedioIdx.value + 1) % vedios.length
+}
+const debounceVedio = debounce(switchVedio, 800)
+const vedios = [
+	{
+		src: new URL('../../assets/img/works/show1-left.mp4', import.meta.url).href,
+		designer: 'Minthqpc',
+		common: '丝绒馥语-法式中古166㎡'
+	},
+	{
+		src: new URL('../../assets/img/works/works-video02.mp4', import.meta.url).href,
+		designer: 'Pandy',
+		common: '金域华庭现代简约104㎡3室'
+	},
+]
 </script>
 
 <style lang="less" scoped>
 @import url(./Works.less);
 
-.design-right {
+:is(.design-right,
+	.show1-wrap) {
 	&:hover button {
 		display: block;
 	}
