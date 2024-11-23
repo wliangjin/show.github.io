@@ -86,23 +86,23 @@
 import { showItems } from '@/data/jzsj';
 import { onMounted, ref } from 'vue';
 const getImg = (imgid: string) => {
-	return new URL(`../../assets/img/jzsj/item${imgid}.WEBP`, import.meta.url).href
+	return new URL(`../../assets/img/jzsj/item${imgid}.webp`, import.meta.url).href
 }
 const swipeImgs = [
 	{
-		src: new URL('../../assets/img/jzsj/banner01.WEBP', import.meta.url).href,
+		src: new URL('../../assets/img/jzsj/banner01.webp', import.meta.url).href,
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner02.WEBP', import.meta.url).href,
+		src: new URL('../../assets/img/jzsj/banner02.webp', import.meta.url).href,
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner03.WEBP', import.meta.url).href,
+		src: new URL('../../assets/img/jzsj/banner03.webp', import.meta.url).href,
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner04.WEBP', import.meta.url).href,
+		src: new URL('../../assets/img/jzsj/banner04.webp', import.meta.url).href,
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner05.WEBP', import.meta.url).href,
+		src: new URL('../../assets/img/jzsj/banner05.webp', import.meta.url).href,
 	},
 ]
 const currentIndex = ref(0)
