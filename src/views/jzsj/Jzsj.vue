@@ -31,7 +31,7 @@
 
 					<div class="design-right flex flex-col justify-between w-[calc(34%-24px)]">
 						<div class="right-img">
-							<img src="../../assets/img/jzsj/right-top02.webp" alt="">
+							<!-- <img src="../../assets/img/jzsj/right-top02.webp" alt=""> -->
 							<div class="banner-info">
 								<h4>Room tour</h4>
 								<p>酷家乐硬装素材上新</p>
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 						<div class="right-img">
-							<img src="../../assets/img/jzsj/right-top01.webp" alt="">
+							<!-- <img src="../../assets/img/jzsj/right-top01.webp" alt=""> -->
 							<div class="banner-info">
 								<h4>功能更新</h4>
 								<p>模型支持精准布置</p>

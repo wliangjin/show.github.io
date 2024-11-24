@@ -1,6 +1,10 @@
 <template>
 	<Header></Header>
-	<router-view></router-view>
+		<router-view v-slot="{ Component }">
+			<transition name="slide-fade">
+				<component :is="Component" />
+			</transition>
+		</router-view>
 	<Footer></Footer>
 </template>
 
@@ -10,4 +14,17 @@ import Footer from './footer/Footer.vue';
 import { RouterView } from 'vue-router';
 </script>
 
-<style scoped></style>
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+/* .slide-fade-leave-active {
+  transition: all 0.3s ease;
+} */
+
+.slide-fade-enter-from/* ,
+.slide-fade-leave-to */ {
+  transform: translateX(-20px);
+}
+</style>

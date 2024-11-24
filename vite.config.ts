@@ -6,7 +6,6 @@ import postcssPresetEnv from 'postcss-preset-env';
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-// import * as path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,7 +25,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      // '@': path.resolve('./src'),
     }
   },
   base: './',
