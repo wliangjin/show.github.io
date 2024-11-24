@@ -18,7 +18,7 @@
 							<p class="font-bold">视频动画</p>
 						</div>
 						<div class="swipe-container">
-							<div v-for="(img, i) in swipeImgs" :key="i" class="img-item absolute inset-0 opacity-0"
+							<div v-for="(img, i) in swipeImgs" :key="i" class="img-item absolute inset-0 opacity-0 transition-all duration-300"
 								:class="{ active: currentIndex == i }">
 								<img :src="img.src" alt="" srcset="" class="w-full h-full">
 							</div>
@@ -31,7 +31,7 @@
 
 					<div class="design-right flex flex-col justify-between w-[calc(34%-24px)]">
 						<div class="right-img">
-							<img src="../../assets/img/jzsj/banner01.webp" alt="">
+							<img :src="swipeImgs[0].src" alt="">
 							<div class="banner-info">
 								<h4>Room tour</h4>
 								<p>酷家乐硬装素材上新</p>
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 						<div class="right-img">
-							<img src="../../assets/img/jzsj/banner02.webp" alt="">
+							<img :src="swipeImgs[1].src" alt="">
 							<div class="banner-info">
 								<h4>功能更新</h4>
 								<p>模型支持精准布置</p>
