@@ -85,8 +85,6 @@
 <script setup lang="ts">
 import { showItems } from '@/data/jzsj';
 import { onMounted, ref } from 'vue';
-import rightTop02 from '../../assets/img/jzsj/right-top02.webp';
-import rightTop01 from '../../assets/img/jzsj/right-top01.webp';
 const getImg = (imgid: string) => {
 	return new URL(`../../assets/img/jzsj/item${imgid}.webp`, import.meta.url).href
 }

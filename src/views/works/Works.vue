@@ -255,12 +255,6 @@ const debounce = function (this: any, fn: Function, wait: number) {
 const next = debounce(goNext, 800)
 const prev = debounce(goPrev, 800)
 const vedioIdx = ref(0)
-// const switchLeftVedio = () => {
-// 	vedioIdx.value = (vedioIdx.value + 1) % vedios.length
-// }
-// const switchRightVedio = () => {
-// 	vedioIdx.value = (vedioIdx.value - 1) % vedios.length
-// }
 const switchVedio = function (direction: 'left' | 'right') {
 	direction == 'left' ?
 		vedioIdx.value = (vedioIdx.value - 1 < 0 ? 1 : vedioIdx.value - 1) % vedios.length :
