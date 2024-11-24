@@ -90,19 +90,20 @@ const getImg = (imgid: string) => {
 }
 const swipeImgs = [
 	{
-		src: new URL('../../assets/img/jzsj/banner01.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right01.webp', import.meta.url).href,
+		title: '水岸蓝桥中古风'
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner02.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right02.webp', import.meta.url).href,
+		title: '一江两岸'
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner03.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right03.webp', import.meta.url).href,
+		title: '福州帝景苑公寓128㎡1室'
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner04.webp', import.meta.url).href,
-	},
-	{
-		src: new URL('../../assets/img/jzsj/banner05.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right01.webp', import.meta.url).href,
+		title: '水岸蓝桥中古风'
 	},
 ]
 const currentIndex = ref(0)
