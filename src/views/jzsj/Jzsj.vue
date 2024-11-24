@@ -18,13 +18,13 @@
 							<p class="font-bold">视频动画</p>
 						</div>
 						<div class="swipe-container">
-							<div v-for="(img, i) in imgs" :key="i" class="img-item absolute inset-0 opacity-0 transition-all duration-300"
+							<div v-for="(img, i) in swipeImgs" :key="i" class="img-item absolute inset-0 opacity-0 transition-all duration-300"
 								:class="{ active: currentIndex == i }">
 								<img :src="img.src" alt="" srcset="" class="w-full h-full">
 							</div>
 						</div>
 						<div class="bottom-item flex justify-center w-full absolute bottom-0 p-5">
-							<button class="w-8 h-2 bg-gray-200 rounded-full mx-2" v-for="(dot, i) in imgs" :key="i"
+							<button class="w-8 h-2 bg-gray-200 rounded-full mx-2" v-for="(dot, i) in swipeImgs" :key="i"
 								:class="{ dot: currentIndex == i }" @click="currentIndex = i"></button>
 						</div>
 					</div>
@@ -88,7 +88,7 @@ import { onMounted, ref } from 'vue';
 const getImg = (imgid: string) => {
 	return new URL(`../../assets/img/jzsj/item${imgid}.webp`, import.meta.url).href
 }
-const imgs = [
+const swipeImgs = [
 	{
 		src: new URL('../../assets/img/jzsj/banner01.webp', import.meta.url).href,
 	},
@@ -109,7 +109,7 @@ const currentIndex = ref(0)
 let timer: any = null
 const autoPlay = () => {
 	timer = setInterval(() => {
-		currentIndex.value = (currentIndex.value + 1) % imgs.length
+		currentIndex.value = (currentIndex.value + 1) % swipeImgs.length
 	}, 2500)
 }
 const stop = () => {
