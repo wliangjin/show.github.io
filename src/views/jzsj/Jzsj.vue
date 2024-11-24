@@ -31,7 +31,7 @@
 
 					<div class="design-right flex flex-col justify-between w-[calc(34%-24px)]">
 						<div class="right-img">
-							<!-- <img src="../../assets/img/jzsj/right-top02.webp" alt=""> -->
+							<img src="../../assets/img/jzsj/right-top02.webp" alt="">
 							<div class="banner-info">
 								<h4>Room tour</h4>
 								<p>酷家乐硬装素材上新</p>
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 						<div class="right-img">
-							<!-- <img src="../../assets/img/jzsj/right-top01.webp" alt=""> -->
+							<img src="../../assets/img/jzsj/right-top01.webp" alt="">
 							<div class="banner-info">
 								<h4>功能更新</h4>
 								<p>模型支持精准布置</p>
@@ -90,19 +90,20 @@ const getImg = (imgid: string) => {
 }
 const swipeImgs = [
 	{
-		src: new URL('../../assets/img/jzsj/banner01.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right01.webp', import.meta.url).href,
+		title: '水岸蓝桥中古风'
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner02.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right02.webp', import.meta.url).href,
+		title: '一江两岸'
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner03.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right03.webp', import.meta.url).href,
+		title: '福州帝景苑公寓128㎡1室'
 	},
 	{
-		src: new URL('../../assets/img/jzsj/banner04.webp', import.meta.url).href,
-	},
-	{
-		src: new URL('../../assets/img/jzsj/banner05.webp', import.meta.url).href,
+		src: new URL('../../assets/img/works/swipe-right01.webp', import.meta.url).href,
+		title: '水岸蓝桥中古风'
 	},
 ]
 const currentIndex = ref(0)
@@ -144,8 +145,4 @@ onMounted(() => {
 	}
 }
 
-.slideAnimate {
-	// transform: translateX(-200%)
-	transition: all ease-in-out .5s;
-}
 </style>
