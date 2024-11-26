@@ -67,8 +67,8 @@
 						<div class="swipe-container flex absolute inset-0" :class="{ slideAnimate: !stopAnimate }"
 							:style="{ transform: `translateX(${currentIdx * -100}%)` }">
 							<img v-for="(img, i) in swipeImgs" :key="i" :src="img.src" alt="" srcset="" class="w-full">
-							<!-- <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted
-								src="../../assets/img/works/works-video02.mp4"></video> -->
+							<video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted
+								src="../../assets/img/works/works-video02.mp4"></video>
 						</div>
 						<div class="bottom-item flex justify-between w-full absolute bottom-0 p-5">
 							<div class="bottom-left">
@@ -113,20 +113,21 @@
 							<div class="title absolute left-3 top-3 px-3 py-2 bg-gray-800/80 text-white text-base rounded-md">
 								<p class="font-bold text-sm">大咖秀</p>
 							</div>
-							<video autoplay loop muted :src="vedios[vedioIdx].src"
+							<video autoplay loop muted :src="videos[videoIdx].src"
 								class="w-full h-full object-cover absolute inset-0"></video>
+							<img src="../../assets/img/works/swipe-right03.webp" alt="" class="w-full h-full object-cover">
 							<button class="bt-prev" @click="debounceVedio('left')">&#8636;</button>
 							<button class="bt-next" @click="debounceVedio('right')">&#8640;</button>
 							<div class="bottom-item absolute w-full bottom-0 p-5">
 								<div class="bottom-left text-white/90">
 									<div class="title flex items-center">
 										<div class="mini-circle bg-indigo-300 w-3 h-3 rounded-full mr-1 opacity-50"></div>
-										<div class="font-bold"><a href="#">{{ vedios[vedioIdx].designer }}</a></div>
-										<div class="w-[50px] h-[20px] ml-2 bg-cover"
-											style="background: url(../img/works/xinshou.webp) no-repeat;background-size: cover;">
+										<div class="font-bold text-lg"><a href="#">{{ videos[videoIdx].designer }}</a></div>
+										<div class="w-[50px] h-[20px] ml-2 bg-cover absolute inset-0"
+											style="background: url(../../assets/img/works/xinshou.webp) no-repeat;background-size: cover;">
 										</div>
 									</div>
-									<p class="text-sm">{{ vedios[vedioIdx].common }}</p>
+									<p class="text-sm">{{ videos[videoIdx].common }}</p>
 								</div>
 							</div>
 						</div>
@@ -208,7 +209,7 @@ const goNext = () => {
 	currentIdx.value >= swipeImgs.length - 1 && setTimeout(() => {
 		currentIdx.value = 0
 		stopAnimate.value = true
-	}, 500);
+	}, 0);
 	stopAnimate.value = false
 }
 const goPrev = () => {
@@ -252,16 +253,10 @@ const debounce = function (this: any, fn: Function, wait: number) {
 		}, wait)
 	}
 }
-const next = debounce(goNext, 800)
-const prev = debounce(goPrev, 800)
-const vedioIdx = ref(0)
-const switchVedio = function (direction: 'left' | 'right') {
-	direction == 'left' ?
-		vedioIdx.value = (vedioIdx.value - 1 < 0 ? 1 : vedioIdx.value - 1) % vedios.length :
-		vedioIdx.value = (vedioIdx.value + 1) % vedios.length
-}
-const debounceVedio = debounce(switchVedio, 800)
-const vedios = [
+const next = debounce(goNext, 600)
+const prev = debounce(goPrev, 600)
+
+const videos = [
 	{
 		src: new URL('../../assets/img/works/show1-left.mp4', import.meta.url).href,
 		designer: 'Minthqpc',
@@ -273,10 +268,28 @@ const vedios = [
 		common: '金域华庭现代简约104㎡3室'
 	},
 ]
+const videoIdx = ref(0)
+const switchVedio = function (direction: 'left' | 'right') {
+	direction == 'left' ?
+		videoIdx.value = (videoIdx.value - 1 + videos.length) % videos.length :
+		videoIdx.value = (videoIdx.value + 1) % videos.length
+}
+const debounceVedio = debounce(switchVedio, 500)
+
 </script>
 
 <style lang="less" scoped>
 @import url(./Works.less);
+
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
 
 :is(.design-right,
 	.show1-wrap) {

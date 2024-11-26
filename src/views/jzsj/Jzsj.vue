@@ -18,15 +18,19 @@
 							<p class="font-bold">视频动画</p>
 						</div>
 						<div class="swipe-container">
-							<div v-for="(img, i) in swipeImgs" :key="i" class="img-item absolute inset-0 opacity-0 transition-all duration-300"
+							<div v-for="(img, i) in swipeImgs" :key="i"
+								class="img-item absolute inset-0 opacity-0 transition-all duration-300"
 								:class="{ active: currentIndex == i }">
 								<img :src="img.src" alt="" srcset="" class="w-full h-full">
 							</div>
 						</div>
 						<div class="bottom-item flex justify-center w-full absolute bottom-0 p-5">
-							<button class="w-8 h-2 bg-gray-200 rounded-full mx-2" v-for="(dot, i) in swipeImgs" :key="i"
-								:class="{ dot: currentIndex == i }" @click="currentIndex = i"></button>
+							<button class="w-8 h-2 bg-slate-100 border border-blue-300 rounded-full mx-2"
+								v-for="(dot, i) in swipeImgs" :key="i" :class="{ dot: currentIndex == i }"
+								@click="currentIndex = i"></button>
 						</div>
+						<button class="bt-prev" @click="prev()">&#8636;</button>
+						<button class="bt-next" @click="next()">&#8640;</button>
 					</div>
 
 					<div class="design-right flex flex-col justify-between w-[calc(34%-24px)]">
@@ -106,6 +110,13 @@ const swipeImgs = [
 	},
 ]
 const currentIndex = ref(0)
+
+const next = () => {
+	currentIndex.value = (currentIndex.value + 1) % swipeImgs.length
+}
+const prev = () => {
+	currentIndex.value = (currentIndex.value - 1 + swipeImgs.length) % swipeImgs.length
+}
 let timer: any = null
 const autoPlay = () => {
 	timer = setInterval(() => {
@@ -131,6 +142,34 @@ onMounted(() => {
 		display: block;
 	}
 
+	.bt-prev,
+	.bt-next {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		font-size: 20px;
+		position: absolute;
+		background: rgb(232, 232, 232);
+		color: rgba(72, 72, 72, 0.797);
+		display: none;
+
+		&:hover {
+			color: rgb(58, 95, 233);
+			background: rgb(230, 230, 230);
+		}
+
+		&:nth-of-type(1) {
+			top: 50%;
+			left: 3%;
+		}
+
+		&:nth-of-type(2) {
+			top: 50%;
+			right: 2%;
+		}
+
+	}
+
 	.active {
 		opacity: 1;
 	}
@@ -138,10 +177,10 @@ onMounted(() => {
 	.dot {
 		background: white;
 		box-shadow: inset 0 3px 10px 0 rgba(5, 128, 250, 0.2);
-		border: 1px solid #c5d3f4;
+		border: 1px solid #7ea3f9;
 		width: 60px;
+		transition: all 0.1s ease-in;
 		filter: contrast(80%);
 	}
 }
-
 </style>

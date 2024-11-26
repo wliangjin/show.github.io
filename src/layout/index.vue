@@ -25,6 +25,7 @@ import { RouterView } from 'vue-router';
 
 .slide-fade-enter-from/* ,
 .slide-fade-leave-to */ {
+	opacity: .7;
   transform: translateX(-20px);
 }
 </style>
