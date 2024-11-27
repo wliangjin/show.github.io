@@ -1,5 +1,5 @@
 <template>
-	<div class="container min-h-[100vh] w-[80%] mx-auto">
+	<div class="container w-[80%] mx-auto">
 		<div class="topbar mt-7 mb-12">
 			<ul class="flex justify-center text-2xl font-bold text-gray-500">
 				<li :class="{ active: k == version }" v-for="(v, k) of price" :key="k" @click.prevent="() => {
@@ -85,6 +85,7 @@ const boxIdx = ref(0)
 
 	.main-inner {
 		flex-flow: wrap;
+
 		.box {
 			width: 48%;
 		}

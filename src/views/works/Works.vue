@@ -67,8 +67,8 @@
 						<div class="swipe-container flex absolute inset-0" :class="{ slideAnimate: !stopAnimate }"
 							:style="{ transform: `translateX(${currentIdx * -100}%)` }">
 							<img v-for="(img, i) in swipeImgs" :key="i" :src="img.src" alt="" srcset="" class="w-full">
-							<video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted
-								src="../../assets/img/works/works-video02.mp4"></video>
+							<!-- <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted
+								src="../../assets/img/works/works-video02.mp4"></video> -->
 						</div>
 						<div class="bottom-item flex justify-between w-full absolute bottom-0 p-5">
 							<div class="bottom-left">
@@ -152,7 +152,7 @@
 				<div class="show2-wrap pb-5">
 					<div class="show2-item columns-3 gap-6">
 						<div v-for="item in showItems" :key="item.id" class="item">
-							<div class="img-wrap"><a href="#"><img :src="getImg(item.img)" alt=""></a>
+							<div class="img-wrap"><a href="#"><img :src="item.img" alt=""></a>
 							</div>
 							<div class="content-bottom flex justify-between w-full px-5 py-4">
 								<div class="bottom-left">
@@ -179,8 +179,11 @@
 </template>
 
 <script setup lang="ts">
-import { category, showItems } from '@/data/works';
+import { category } from '@/data/works';
 import { ref } from 'vue';
+import { useWorksStore } from "@/store/works";
+const worksStore = useWorksStore()
+const showItems = worksStore.works
 const getImg = (imgid: string) => {
 	return new URL(`../../assets/img/works/item${imgid}.webp`, import.meta.url).href
 }
@@ -209,7 +212,7 @@ const goNext = () => {
 	currentIdx.value >= swipeImgs.length - 1 && setTimeout(() => {
 		currentIdx.value = 0
 		stopAnimate.value = true
-	}, 0);
+	}, 500);
 	stopAnimate.value = false
 }
 const goPrev = () => {

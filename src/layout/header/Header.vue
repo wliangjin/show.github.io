@@ -27,8 +27,7 @@
 		</div>
 		<div class="profile" v-if="alredyLogin">
 			<div class="avatar flex items-center">
-				<el-avatar fit="contain" @error="() => true"
-					src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png">
+				<el-avatar fit="cover" @error="() => true" :src="userInfo.avatar">
 					<img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
 				</el-avatar>
 			</div>
@@ -39,6 +38,14 @@
 					</el-icon>
 					<span class="ml-1">{{ userInfo.username }}</span>
 				</div>
+				<div v-if="alredyLogin">
+					<RouterLink to="/manage" :replace="true">
+						<el-icon>
+							<Management color="blueviolet" />
+						</el-icon>
+						<button class="btn">后台管理</button>
+					</RouterLink>
+				</div>
 				<div @click="handleExit" class="flex items-center">
 					<el-icon>
 						<Promotion color="red" />
@@ -46,7 +53,6 @@
 					<span class="ml-1">退出登录</span>
 				</div>
 			</div>
-
 		</div>
 		<el-dialog v-if="dialogVisible" v-model="dialogVisible" :close-on-click-modal="false" :z-index="999">
 			<Login :type="authType" @close-dialog="dialogVisible = false"></Login>
@@ -59,17 +65,21 @@ import { ref } from 'vue';
 import Login from '@/views/login/Login.vue';
 import { RouterLink, useRouter } from 'vue-router';
 import { localData } from '@/utils/storage';
+import { useUserStore } from "@/store/user";
+const userStore = useUserStore()
 const router = useRouter()
 const authType = ref(1)
-const userInfo = ref(localData.get('userInfo'))
+const userInfo = ref(userStore.userInfo)
 // const getUserProfile = () => {
 // 	userInfo.value = localData.get('userInfo')
 // }
 const alredyLogin = ref(localData.get('token'))
+
 const handleExit = () => {
-	localData.remove('token')
-	localData.remove('userInfo')
+	// localData.remove('token')
+	// localData.remove('userInfo')
 	alredyLogin.value = false
+	userStore.logout()
 	window.location.reload()
 }
 let key = 1001
@@ -161,6 +171,7 @@ const navitems = [
 		label: '价格'
 	}
 ]
+
 const dialogVisible = ref(false)
 </script>
 

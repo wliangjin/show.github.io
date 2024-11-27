@@ -52,6 +52,13 @@ const routes: RouteRecordRaw[] = [
 		]
 	},
 	{
+		path: '/manage',
+		component: () => import('@/views/manage/Manage.vue'),
+		meta: {
+			title: '管理后台'
+		}
+	},
+	{
 		path: '/:pathMatch(.*)*',
 		redirect: '/404'
 	}
