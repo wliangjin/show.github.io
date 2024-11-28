@@ -38,11 +38,14 @@
 								<a href="">找回密码</a>
 							</div>
 							<input type="submit" :value="typeName" id="" class="submit" />
-							<el-tooltip class="box-item" effect="dark" :content="prompt" placement="right">
-								<el-button size="small">内置账户<el-icon>
-										<WarningFilled />
-									</el-icon></el-button>
-							</el-tooltip>
+							<div class="login-info" v-if="isLogin">
+								<el-tooltip class="box-item" effect="dark" placement="right">
+									<template #content>点击一键填入管理员账户<br /> 用户名：admin 密码：999999</template>
+									<el-button size="small" @click="autoInput">管理员账户<el-icon>
+											<WarningFilled />
+										</el-icon></el-button>
+								</el-tooltip>
+							</div>
 						</form>
 					</div>
 					<div class="register">
@@ -77,7 +80,6 @@ const emit = defineEmits<{
 const delay = async (delayTime: number = 500) => {
 	await new Promise<void>(resolve => setTimeout(resolve, delayTime))
 }
-const prompt = ref('用户名：admin  密码：999999')
 const typeName = ref('')
 const isLogin = ref(prop.type == 1)
 // 1登录 2注册
@@ -98,7 +100,9 @@ Object.assign(form, initForm)
 const remember = ref(false)
 
 const fromRegister = ref(false)
-
+const autoInput = () => {
+	Object.assign(form, { username: 'admin', password: '999999' })
+}
 watch(() => isLogin.value, (newValue) => {
 	if (newValue) {
 		typeName.value = '登录'

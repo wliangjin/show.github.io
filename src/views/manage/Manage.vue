@@ -1,7 +1,8 @@
 <template>
 	<div class="container pb-5 px-5 box-border bg-white rounded-lg overflow-hidden w-[92%] mx-auto mt-3">
-		<div class="operate flex justify-end py-3 px-3">
-			<el-button type="primary" plain @click="router.replace('/')">返回前台</el-button>
+		<div class="operate flex justify-end items-center py-3">
+			<el-tag effect="dark" type="info" size="large" class="mr-auto">作品页面列表项管理</el-tag>
+			<el-button plain @click="router.replace('/')">返回前台</el-button>
 			<div class="searceh mx-3">
 				<el-input clearable v-model="search" size="default" placeholder="搜索设计师">
 					<!-- <template #append>
@@ -12,13 +13,13 @@
 			<el-popconfirm width="220" confirm-button-text="确认" cancel-button-text="取消" icon="InfoFilled" icon-color="#626AEF"
 				title="重置默认数据" @confirm="hanleReset()">
 				<template #reference>
-					<el-button type="warning" plain>重置数据</el-button>
+					<el-button type="danger" plain>重置数据</el-button>
 				</template>
 			</el-popconfirm>
-			<el-button type="primary" plain @click="handleCreate()">新增作品</el-button>
+			<el-button type="primary" @click="handleCreate()">新增作品</el-button>
 		</div>
 		<el-table :data="worksStore.works" v-loading="loading" :stripe="true" @selection-change="handleSelectionChange"
-			:table-layout="tableLayout" style="width: 100%" max-height="580"
+			:table-layout="tableLayout" style="width: 100%" :max-height="tableHeight">
 			:header-cell-style="{ background: '#eef1f6', color: '#606266' }">
 			<!-- <el-table-column type="selection" width="55" /> -->
 			<!-- <el-table-column fixed type="index" :index="1" label="序号" width="60" /> -->
@@ -71,6 +72,10 @@ const loading = ref(false)
 const getImg = (imgid: string) => {
 	return new URL(`../../assets/img/works/item${imgid}.webp`, import.meta.url).href
 }
+
+const tableHeight = computed(() => {
+	return window.innerHeight - 120
+})
 
 //关闭弹窗
 const dialogVisible = ref(false)
