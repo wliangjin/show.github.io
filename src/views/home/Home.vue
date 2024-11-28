@@ -183,7 +183,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
 	window.removeEventListener('contextmenu', desableRightClick)
 	window.removeEventListener('selectstart', desableSelect)
-	console.log('beforeUnmount');
 })
 
 </script>
