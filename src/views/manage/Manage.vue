@@ -3,7 +3,7 @@
 		<div class="operate flex justify-end items-center py-3">
 			<el-tag effect="dark" type="info" size="large" class="mr-auto">作品页面列表项管理</el-tag>
 			<el-button plain @click="router.replace('/')">返回前台</el-button>
-			<div class="searceh mx-3">
+			<div class="searceh w-[200px] mx-3">
 				<el-input clearable v-model="search" size="default" placeholder="搜索设计师">
 					<!-- <template #append>
 						<el-button :icon="Search" />
@@ -18,7 +18,7 @@
 			</el-popconfirm>
 			<el-button type="primary" @click="handleCreate()">新增作品</el-button>
 		</div>
-		<el-table :data="worksStore.works" v-loading="loading" :stripe="true" @selection-change="handleSelectionChange"
+		<el-table :data="filterTableData" v-loading="loading" :stripe="true" @selection-change="handleSelectionChange"
 			:table-layout="tableLayout" style="width: 100%" :max-height="tableHeight">
 			:header-cell-style="{ background: '#eef1f6', color: '#606266' }">
 			<!-- <el-table-column type="selection" width="55" /> -->
