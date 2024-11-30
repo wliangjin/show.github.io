@@ -123,8 +123,8 @@
 									<div class="title flex items-center">
 										<div class="mini-circle bg-indigo-300 w-3 h-3 rounded-full mr-1 opacity-50"></div>
 										<div class="font-bold text-lg"><a href="#">{{ videos[videoIdx].designer }}</a></div>
-										<div class="w-[50px] h-[20px] ml-2 bg-cover absolute inset-0"
-											style="background: url(../../assets/img/works/xinshou.webp) no-repeat;background-size: cover;">
+										<div class="w-[46px] h-[16px] ml-2 object-contain">
+											<img src="../../assets/img/works/xinshou.webp" alt="">
 										</div>
 									</div>
 									<p class="text-sm">{{ videos[videoIdx].common }}</p>
