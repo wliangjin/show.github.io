@@ -23,7 +23,7 @@
 							<div class="item">
 								<span><img src="@/assets/账号.svg" alt="" class="icon" /></span>
 								<input v-model.trim="form.username" type="text" name="username" placeholder="用户名为名字拼音" id="username"
-									required pattern="^\w{4,20}$" title="用户名为名字拼音" />
+									required pattern="^\w{3,20}$" title="用户名为名字拼音" />
 							</div>
 							<div class="item">
 								<span class="icon"><img src="@/assets/密码.svg" alt="" class="icon" /></span>
@@ -68,6 +68,7 @@ import { reactive, ref, watch } from 'vue';
 import { localData } from '@/utils/storage';
 import { ElMessage } from 'element-plus';
 import { useUserStore } from "@/store/user";
+import { waitTime } from '@/utils/common';
 const { login, register } = useUserStore()
 const userStore = useUserStore()
 const prop = defineProps({
@@ -77,12 +78,9 @@ const prop = defineProps({
 const emit = defineEmits<{
 	(e: 'closeDialog'): void
 }>()
-const delay = async (delayTime: number = 500) => {
-	await new Promise<void>(resolve => setTimeout(resolve, delayTime))
-}
 const typeName = ref('')
-const isLogin = ref(prop.type == 1)
 // 1登录 2注册
+const isLogin = ref(prop.type == 1)
 // interface User {
 // 	userid?: number
 // 	username: String
@@ -138,7 +136,7 @@ const handleAuth = async () => {
 			remember.value ?
 				localData.set('loginInfo', Object.assign({ remember: remember.value }, form))
 				: localData.remove('loginInfo')
-			await delay(600)
+			await waitTime(600)
 			window.location.reload()
 		}
 	} else {
@@ -163,7 +161,7 @@ const handleAuth = async () => {
 			message: '注册成功',
 			duration: 1500
 		})
-		await delay(800)
+		await waitTime(800)
 		isLogin.value = true
 	}
 }

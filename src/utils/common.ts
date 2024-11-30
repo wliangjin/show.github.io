@@ -3,8 +3,6 @@ export const randomNum = (min: number, max: number) => {
 }
 export const waitTime = (time: number) => {
 	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(true)
-		}, time)
+		setTimeout(resolve, time)
 	})
 }

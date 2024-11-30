@@ -38,7 +38,7 @@
 					</el-icon>
 					<span class="ml-1">{{ userInfo.username }}</span>
 				</div>
-				<div v-if="alredyLogin">
+				<div v-if="hasPermissions">
 					<RouterLink to="/manage" :replace="true">
 						<el-icon>
 							<Management color="blueviolet" />
@@ -66,19 +66,28 @@ import Login from '@/views/login/Login.vue';
 import { RouterLink, useRouter } from 'vue-router';
 import { localData } from '@/utils/storage';
 import { useUserStore } from "@/store/user";
+import { users } from '@/store/user';
+import { waitTime } from '@/utils/common';
 const userStore = useUserStore()
 const router = useRouter()
 const authType = ref(1)
 const userInfo = ref(userStore.userInfo)
+const hasPermissions = ref(false)
+users.forEach((user) => {
+	if (user.username == userInfo.value.username) {
+		hasPermissions.value = true
+	}
+})
 // const getUserProfile = () => {
 // 	userInfo.value = localData.get('userInfo')
 // }
 const alredyLogin = ref(localData.get('token'))
 
-const handleExit = () => {
+const handleExit = async () => {
 	// localData.remove('token')
 	// localData.remove('userInfo')
 	alredyLogin.value = false
+	await waitTime(600)
 	userStore.logout()
 	window.location.reload()
 }
@@ -93,23 +102,6 @@ const navitems = [
 		key: key++,
 		path: '/jzsj',
 		label: '家装设计',
-		// children: [
-		// 	{
-		// 		key: key++,
-		// 		path: '#',
-		// 		label: '户型设计',
-		// 	},
-		// 	{
-		// 		key: key++,
-		// 		path: '#',
-		// 		label: '硬装设计',
-		// 	},
-		// 	{
-		// 		key: key++,
-		// 		path: '#',
-		// 		label: '橱衣柜设计',
-		// 	}
-		// ]
 	},
 	{
 		key: key++,
@@ -169,6 +161,11 @@ const navitems = [
 		key: key++,
 		path: '/price',
 		label: '价格'
+	},
+	{
+		key: key++,
+		path: '/about',
+		label: '关于我们'
 	}
 ]
 

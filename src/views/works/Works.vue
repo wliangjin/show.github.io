@@ -184,9 +184,9 @@ import { ref } from 'vue';
 import { useWorksStore } from "@/store/works";
 const worksStore = useWorksStore()
 const showItems = worksStore.works
-const getImg = (imgid: string) => {
-	return new URL(`../../assets/img/works/item${imgid}.webp`, import.meta.url).href
-}
+// const getImg = (imgid: string) => {
+// 	return new URL(`../../assets/img/works/item${imgid}.webp`, import.meta.url).href
+// }
 const swipeImgs = [
 	{
 		src: new URL('../../assets/img/works/swipe-right01.webp', import.meta.url).href,

@@ -6,7 +6,7 @@ interface LoginDto {
 	username: string;
 	password: string;
 }
-const users = [
+export const users = [
 	{
 		userid: 1001,
 		username: 'admin',
@@ -21,6 +21,31 @@ const users = [
 		userid: 1003,
 		username: 'weiqiongjian',
 		password: '21060734'
+	},
+	{
+		userid: 1004,
+		username: 'liangzhong',
+		password: '21060634'
+	},
+	{
+		userid: 1004,
+		username: 'liangzhong',
+		password: '21060634'
+	},
+	{
+		userid: 1005,
+		username: 'xiewangfu',
+		password: '21060636'
+	},
+	{
+		userid: 1006,
+		username: 'weizonglin',
+		password: '21060746'
+	},
+	{
+		userid: 1007,
+		username: 'tangyanzhen',
+		password: '21060720'
 	},
 ]
 // localData.get('users') || localData.set('users', users)
