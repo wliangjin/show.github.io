@@ -111,7 +111,7 @@ watch(() => isLogin.value, (newValue) => {
 		}
 	} else {
 		typeName.value = '注册'
-		Object.assign(form, initForm)
+		Object.assign(form, { ...initForm })
 	}
 }, { immediate: true })
 
@@ -154,14 +154,14 @@ const handleAuth = async () => {
 			return
 		}
 		register(form)
-		// Object.assign(form, initForm) //注册后是否在登录页输入框保存注册信息
+		// Object.assign(form, { ...initForm }) //注册后是否在登录页输入框保存注册信息
 		fromRegister.value = true
 		ElMessage({
 			type: 'success',
 			message: '注册成功',
 			duration: 1500
 		})
-		await waitTime(800)
+		await waitTime(600)
 		isLogin.value = true
 	}
 }
