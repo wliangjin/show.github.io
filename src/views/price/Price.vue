@@ -3,7 +3,7 @@
 		<div class="topbar mt-7 mb-12">
 			<ul class="flex justify-center text-2xl font-bold text-gray-500">
 				<li :class="{ active: k == version }" v-for="(v, k) of price" :key="k" @click.prevent="() => {
-					(version as any) = k, boxIdx = 0
+					version = k, boxIdx = 0
 				}"><a href="#">{{ v.title }}</a>
 				</li>
 				<!-- <li><a href="#">{{ price.personal.title }}</a></li>
@@ -42,8 +42,8 @@
 <script setup lang="ts">
 import { price } from '@/data/price';
 import { ref } from 'vue';
-const version = ref('personal')
-function getPropertyValue<T, K extends keyof T>(obj: T, key: K): T[K] {
+const version = ref(Object.keys(price)[0] as keyof typeof price)
+function getPropertyValue(obj: typeof price, key: keyof typeof price) {
 	return obj[key];
 }
 const boxIdx = ref(0)

@@ -81,11 +81,6 @@ const emit = defineEmits<{
 const typeName = ref('')
 // 1登录 2注册
 const isLogin = ref(prop.type == 1)
-// interface User {
-// 	userid?: number
-// 	username: String
-// 	password: String
-// }
 let form = reactive({
 	username: '',
 	password: '',
@@ -115,10 +110,6 @@ watch(() => isLogin.value, (newValue) => {
 	}
 }, { immediate: true })
 
-// const verify = [{
-// 	username: { pattern: '^\w{4,12}$', message: '用户名为名字拼音' },
-// 	password: { pattern: '^21060[678][0-9]{2}$', message: '密码为学号' },
-// }]
 const handleAuth = async () => {
 	const users = userStore.userList
 	if (isLogin.value) {
