@@ -161,11 +161,6 @@ const navitems = [
 		key: key++,
 		path: '/price',
 		label: '价格'
-	},
-	{
-		key: key++,
-		path: '/about',
-		label: '关于我们'
 	}
 ]
 

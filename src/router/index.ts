@@ -43,13 +43,6 @@ const routes: RouteRecordRaw[] = [
 				}
 			},
 			{
-				path: 'about',
-				component: () => import('@/views/about/About.vue'),
-				meta: {
-					title: '关于我们'
-				}
-			},
-			{
 				path: '404',
 				component: () => import('@/views/404/Notfound.vue'),
 				meta: {
