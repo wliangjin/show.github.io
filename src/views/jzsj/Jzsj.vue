@@ -27,7 +27,7 @@
 						<div class="bottom-item flex justify-center w-full absolute bottom-0 p-5">
 							<button class="w-8 h-2 bg-slate-100 border border-blue-300 rounded-full mx-2"
 								v-for="(dot, i) in swipeImgs" :key="i" :class="{ dot: currentIndex == i }"
-								@click="currentIndex = i"></button>
+								@mouseenter="currentIndex = i"></button>
 						</div>
 						<button class="bt-prev" @click="prev()">&#8636;</button>
 						<button class="bt-next" @click="next()">&#8640;</button>

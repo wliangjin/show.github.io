@@ -16,7 +16,7 @@ import { RouterView } from 'vue-router';
 
 <style scoped>
 .slide-fade-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.5s ease-out;
 }
 
 /* .slide-fade-leave-active {
@@ -26,6 +26,6 @@ import { RouterView } from 'vue-router';
 .slide-fade-enter-from/* ,
 .slide-fade-leave-to */ {
 	opacity: .7;
-  transform: translateX(-20px);
+  transform: translateX(-30px);
 }
 </style>

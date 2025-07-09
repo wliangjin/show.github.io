@@ -22,13 +22,13 @@
 						<form action="" @submit.prevent="handleAuth">
 							<div class="item">
 								<span><img src="@/assets/账号.svg" alt="" class="icon" /></span>
-								<input v-model.trim="form.username" type="text" name="username" placeholder="用户名为名字拼音" id="username"
-									required pattern="^\w{3,20}$" title="用户名为名字拼音" />
+								<input v-model.trim="form.username" type="text" name="username" placeholder="用户名" id="username"
+									required pattern="^\w{3,20}$" title="用户名" />
 							</div>
 							<div class="item">
 								<span class="icon"><img src="@/assets/密码.svg" alt="" class="icon" /></span>
 								<input v-model.trim="form.password" type="password" name="password" placeholder="密码为学号" id="password"
-									required pattern="^21060[678][0-9]{2}|999999$" title="密码为学号" />
+									required pattern="^21060[678][0-9]{2}|999999$" title="密码" />
 							</div>
 							<div class="setStat" v-if="isLogin">
 								<label for="remember">

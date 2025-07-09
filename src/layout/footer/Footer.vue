@@ -17,7 +17,7 @@
 				:class="{ dot: currentIndex == i }" @click="currentIndex = i"></button>
 		</div>
 		<div class="bottom-explain h-[70px] flex flex-col justify-center items-center bg-gray-800">
-			<p class="text-sm text-gray-300">&copy;2011-2024 南宁理工学院 计算机2107班-学号733-韦梁金</p>
+			<p class="text-sm text-gray-300">&copy;2011-2099 南宁理工学院 计算机2107班-学号733-韦梁金</p>
 			<p class="text-xs text-gray-200/60 mt-1">参考自<a class="underline underline-offset-4"
 					href="https://www.kujiale.com/" target="_blank">酷家乐</a>网站，仅用于学习交流，无任何特殊用途</p>
 		</div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const imgs = [
 	{
