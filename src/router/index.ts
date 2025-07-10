@@ -73,7 +73,7 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
 	routes,
-	// scrollBehavior: () => ({ left: 0, top: 0 })
+	scrollBehavior: () => ({ left: 0, top: 0 })
 })
 
 router.beforeEach((to, from, next) => {
