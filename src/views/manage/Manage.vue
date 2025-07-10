@@ -67,6 +67,9 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 const worksStore = useWorksStore()
 const { remove } = worksStore
+defineOptions({
+	name: 'Manage',
+})
 const tableLayout = ref<TableInstance['tableLayout']>('auto')
 const loading = ref(false)
 const getImg = (imgid: string) => {

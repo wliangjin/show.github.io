@@ -1,8 +1,7 @@
 <template>
 	<footer class="bg-white pt-8 container">
-		<div class="footer-swipe relative">
-			<div class="swipe-wrap text-center" :style="{ height: swipeWrapHeight + 'px' }" ref="swipeWrap"
-				@mouseenter="stop()" @mouseleave="autoPlay()">
+		<div class="footer-swipe relative" @mouseenter="stop()" @mouseleave="autoPlay()">
+			<div class="swipe-wrap text-center" :style="{ height: swipeWrapHeight + 'px' }" ref="swipeWrap">
 				<div v-for="(img, i) in imgs" :key="i" class="img-wrap absolute inset-x-0 transition-all duration-600"
 					:class="{ active: currentIndex == i }">
 					<div class="title font-bold text-lg text-gray-500">{{ img.title }}</div>
@@ -11,13 +10,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="pagination flex justify-center mb-8">
-			<button class="w-2 h-2 bg-gray-200 rounded-full mx-2" v-for="(dot, i) in imgs" :key="i"
-				:class="{ dot: currentIndex == i }" @click="currentIndex = i"></button>
+			<div class="pagination flex justify-center mb-8">
+				<button class="w-2 h-2 bg-gray-200 rounded-full mx-2" v-for="(dot, i) in imgs" :key="i"
+					:class="{ dot: currentIndex == i }" @click="currentIndex = i"></button>
+			</div>
 		</div>
 		<div class="bottom-explain h-[70px] flex flex-col justify-center items-center bg-gray-800">
-			<p class="text-sm text-gray-300">&copy;2011-2099 南宁理工学院 计算机2107班-学号733-韦梁金</p>
+			<p class="text-sm text-gray-300">&copy;2011-2099 -----学院 计算机0000班-学号000-多吃两斤肉</p>
 			<p class="text-xs text-gray-200/60 mt-1">参考自<a class="underline underline-offset-4"
 					href="https://www.kujiale.com/" target="_blank">酷家乐</a>网站，仅用于学习交流，无任何特殊用途</p>
 		</div>

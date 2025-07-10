@@ -182,6 +182,9 @@
 import { category } from '@/data/works';
 import { ref } from 'vue';
 import { useWorksStore } from "@/store/works";
+defineOptions({
+	name: 'Works',
+})
 const worksStore = useWorksStore()
 const showItems = worksStore.works
 // const getImg = (imgid: string) => {

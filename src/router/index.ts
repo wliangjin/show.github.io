@@ -9,6 +9,7 @@ const routes: RouteRecordRaw[] = [
 		children: [
 			{
 				path: 'home',
+				name: 'Home',
 				component: () => import('@/views/home/Home.vue'),
 				meta: {
 					title: '在线设计平台'
@@ -16,6 +17,7 @@ const routes: RouteRecordRaw[] = [
 			},
 			{
 				path: 'jzsj',
+				name: 'Jzsj',
 				component: () => import('@/views/jzsj/Jzsj.vue'),
 				meta: {
 					title: '家装设计'
@@ -23,6 +25,7 @@ const routes: RouteRecordRaw[] = [
 			},
 			{
 				path: 'works',
+				name: 'Works',
 				component: () => import('@/views/works/Works.vue'),
 				meta: {
 					title: '作品'
@@ -30,6 +33,7 @@ const routes: RouteRecordRaw[] = [
 			},
 			{
 				path: 'hxk',
+				name: 'Hxk',
 				component: () => import('@/views/hxk/Hxk.vue'),
 				meta: {
 					title: '户型库'
@@ -37,6 +41,7 @@ const routes: RouteRecordRaw[] = [
 			},
 			{
 				path: 'price',
+				name: 'Price',
 				component: () => import('@/views/price/Price.vue'),
 				meta: {
 					title: '定价'
@@ -52,7 +57,8 @@ const routes: RouteRecordRaw[] = [
 		]
 	},
 	{
-		path: '/manage',
+		path: '/manage',	
+		name: 'Manage',
 		component: () => import('@/views/manage/Manage.vue'),
 		meta: {
 			title: '管理后台'
@@ -67,7 +73,7 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
 	routes,
-	scrollBehavior: () => ({ left: 0, top: 0 })
+	// scrollBehavior: () => ({ left: 0, top: 0 })
 })
 
 router.beforeEach((to, from, next) => {

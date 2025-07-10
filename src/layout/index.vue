@@ -1,31 +1,35 @@
 <template>
 	<Header></Header>
-		<router-view v-slot="{ Component }">
-			<transition name="slide-fade">
+	<router-view v-slot="{ Component }">
+		<transition name="slide-fade">
+			<keep-alive>
 				<component :is="Component" />
-			</transition>
-		</router-view>
+			</keep-alive>
+		</transition>
+	</router-view>
 	<Footer></Footer>
 </template>
 
 <script setup lang="ts">
 import Header from './header/Header.vue';
 import Footer from './footer/Footer.vue';
-import { RouterView } from 'vue-router';
 </script>
 
 <style scoped>
 .slide-fade-enter-active {
-  transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 }
 
 /* .slide-fade-leave-active {
   transition: all 0.3s ease;
 } */
 
-.slide-fade-enter-from/* ,
-.slide-fade-leave-to */ {
+.slide-fade-enter-from
+
+/* ,
+.slide-fade-leave-to */
+	{
 	opacity: .7;
-  transform: translateX(-30px);
+	transform: translateX(-30px);
 }
 </style>

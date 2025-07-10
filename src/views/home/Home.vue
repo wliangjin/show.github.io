@@ -170,6 +170,9 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue';
+defineOptions({
+	name: 'Home',
+})
 const desableRightClick = (e: Event) => {
 	e.preventDefault()
 }

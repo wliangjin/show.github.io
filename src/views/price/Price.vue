@@ -42,6 +42,9 @@
 <script setup lang="ts">
 import { price } from '@/data/price';
 import { ref } from 'vue';
+defineOptions({
+	name: 'Price',
+})
 const version = ref(Object.keys(price)[0] as keyof typeof price)
 function getPropertyValue(obj: typeof price, key: keyof typeof price) {
 	return obj[key];
