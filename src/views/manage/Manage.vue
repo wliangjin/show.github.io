@@ -1,8 +1,8 @@
 <template>
 	<div class="container pb-5 px-5 box-border bg-white rounded-lg overflow-hidden w-[92%] mx-auto mt-3">
 		<div class="operate flex justify-end items-center py-3">
-			<el-tag effect="dark" type="info" size="large" class="mr-auto">作品页面列表项管理</el-tag>
-			<el-button plain @click="router.replace('/')">返回前台</el-button>
+			<el-tag effect="dark" size="large" class="mr-auto">作品页面列表项管理</el-tag>
+			
 			<div class="searceh w-[200px] mx-3">
 				<el-input clearable v-model="search" size="default" placeholder="搜索设计师">
 					<!-- <template #append>
@@ -13,10 +13,13 @@
 			<el-popconfirm width="220" confirm-button-text="确认" cancel-button-text="取消" icon="InfoFilled" icon-color="#626AEF"
 				title="重置默认数据" @confirm="hanleReset()">
 				<template #reference>
-					<el-button type="danger" plain>重置数据</el-button>
+					<el-button type="danger">重置数据</el-button>
 				</template>
 			</el-popconfirm>
 			<el-button type="primary" @click="handleCreate()">新增作品</el-button>
+			<el-tooltip class="box-item" effect="dark" content="返回主页" placement="top-start">
+				<el-button @click="router.replace('/')" type="info" icon="back" circle></el-button>
+			</el-tooltip>
 		</div>
 		<el-table :data="filterTableData" v-loading="loading" :stripe="true" @selection-change="handleSelectionChange"
 			:table-layout="tableLayout" style="width: 100%" :max-height="tableHeight">

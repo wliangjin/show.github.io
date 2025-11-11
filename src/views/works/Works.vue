@@ -65,7 +65,7 @@
 							<p class="font-bold">视频动画</p>
 						</div>
 						<div class="swipe-container flex absolute inset-0" :class="{ slideAnimate: !stopAnimate }"
-							:style="{ transform: `translateX(${currentIdx * -100}%)` }">
+							:style="{ transform: `translateX(${currentIdx * -100}%)` }" @transitionend="transitionEnd">
 							<img v-for="(img, i) in swipeImgs" :key="i" :src="img.src" alt="" srcset="" class="w-full">
 							<!-- <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted
 								src="../../assets/img/works/works-video02.mp4"></video> -->
@@ -210,6 +210,12 @@ const swipeImgs = [
 ]
 const currentIdx = ref(0)
 const stopAnimate = ref(false)
+const flag = ref(false)
+const transitionEnd = () => {
+	flag.value = true
+	console.log(flag.value);
+	
+}
 const goNext = () => {
 	currentIdx.value = (currentIdx.value + 1) % swipeImgs.length
 	currentIdx.value >= swipeImgs.length - 1 && setTimeout(() => {

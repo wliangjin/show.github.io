@@ -98,7 +98,7 @@ export const useUserStore = defineStore('user', () => {
 	const register = async (params: LoginDto) => {
 		// 模拟注册
 		try {
-			userList.value.push({
+			return userList.value.push({
 				userid: userList.value[userList.value.length - 1].userid + 1,
 				username: params.username,
 				password: params.password

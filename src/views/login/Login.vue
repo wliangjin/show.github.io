@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="custom-model">
 		<div class="main">
 			<div class="left-content">
 				<div class="topbar">
@@ -20,16 +20,20 @@
 					<hr />
 					<div class="form">
 						<form action="" @submit.prevent="handleAuth">
-							<div class="item">
-								<span><img src="@/assets/账号.svg" alt="" class="icon" /></span>
-								<input v-model.trim="form.username" type="text" name="username" placeholder="用户名" id="username"
-									required pattern="^\w{3,20}$" title="用户名" />
-							</div>
-							<div class="item">
-								<span class="icon"><img src="@/assets/密码.svg" alt="" class="icon" /></span>
-								<input v-model.trim="form.password" type="password" name="password" placeholder="密码为学号" id="password"
-									required pattern="^21060[678][0-9]{2}|999999$" title="密码" />
-							</div>
+							<el-tooltip class="box-item" effect="dark" content="以字母开头的3-15位字母数字组合，可含下划线" placement="left-end">
+								<div class="item">
+									<span><img src="@/assets/账号.svg" alt="" class="icon" /></span>
+									<input v-model.trim="form.username" type="text" name="username" placeholder="用户名" id="username"
+										required title="用户名" />
+								</div>
+							</el-tooltip>
+							<el-tooltip class="box-item" effect="dark" content="6-8位字母数字的组合" placement="left-end">
+								<div class="item">
+									<span class="icon"><img src="@/assets/密码.svg" alt="" class="icon" /></span>
+									<input v-model.trim="form.password" type="password" name="password" placeholder="密码" id="password"
+										required title="密码" />
+								</div>
+							</el-tooltip>
 							<div class="setStat" v-if="isLogin">
 								<label for="remember">
 									<input type="checkbox" name="status" id="remember" v-model="remember" />
@@ -69,6 +73,7 @@ import { localData } from '@/utils/storage';
 import { ElMessage } from 'element-plus';
 import { useUserStore } from "@/store/user";
 import { waitTime } from '@/utils/common';
+
 const { login, register } = useUserStore()
 const userStore = useUserStore()
 const prop = defineProps({
@@ -79,81 +84,111 @@ const emit = defineEmits<{
 	(e: 'closeDialog'): void
 }>()
 const typeName = ref('')
-// 1登录 2注册
+// 登录/注册状态管理
 const isLogin = ref(prop.type == 1)
-let form = reactive({
-	username: '',
-	password: '',
-})
-const initForm = {
-	username: '',
-	password: '',
-}
-Object.assign(form, initForm)
+const form = reactive({ username: '', password: '' })
 const remember = ref(false)
-
 const fromRegister = ref(false)
+// 初始化表单
+const initForm = { username: '', password: '' }
+Object.assign(form, initForm)
+
+// 自动填充测试数据
 const autoInput = () => {
 	Object.assign(form, { username: 'admin', password: '999999' })
 }
+
+// 监听登录/注册切换
 watch(() => isLogin.value, (newValue) => {
+	typeName.value = newValue ? '登录' : '注册'
+
 	if (newValue) {
-		typeName.value = '登录'
+		// 切换到登录页，尝试恢复记住的登录信息
 		const loginInfo = localData.get('loginInfo')
 		if (!fromRegister.value && loginInfo) {
 			remember.value = loginInfo.remember
-			Object.assign(form, localData.get('loginInfo'))
+			Object.assign(form, loginInfo)
 		}
 	} else {
-		typeName.value = '注册'
+		// 切换到注册页，清空表单
 		Object.assign(form, { ...initForm })
 	}
 }, { immediate: true })
 
-const handleAuth = async () => {
-	const users = userStore.userList
-	if (isLogin.value) {
-		//登录操作
-		let isValid = false
-		await login({ username: form.username, password: form.password }) && (isValid = true)
-		//根据校验是否通过提示相应信息
-		ElMessage({
-			type: isValid ? 'success' : 'error',
-			message: isValid ? '登录成功' : '用户名或密码错误',
-			duration: 1500
-		})
-		//如果校验通过或勾选了记住我执行流程，将用户登录信息存储到本地
-		if (isValid) {
-			remember.value ?
-				localData.set('loginInfo', Object.assign({ remember: remember.value }, form))
-				: localData.remove('loginInfo')
-			await waitTime(600)
-			window.location.reload()
+// 输入验证
+const validateInput = (): boolean => {
+	const usernameValid = /^[a-zA-Z][a-zA-Z0-9_]{2,14}$/.test(form.username)
+	const passwordValid = /^(?:[a-zA-Z0-9]{6,8}|999999)$/.test(form.password)
+
+	if (!usernameValid || !passwordValid) {
+		ElMessage.error('用户名或密码格式不正确')
+		return false
+	}
+
+	return true
+}
+
+// 处理登录
+const handleLogin = async () => {
+	const success = await login(form)
+
+	if (success) {
+		ElMessage.success('登录成功')
+
+		// 处理记住我选项
+		if (remember.value) {
+			localData.set('loginInfo', { ...form, remember: true })
+		} else {
+			localData.remove('loginInfo')
 		}
+
+		await waitTime(600)
+		window.location.reload()
+		return true
 	} else {
-		//否则为注册操作
-		//检查用户名是否重复
-		const userRepeat = users.find((user: { username: string; }) => {
-			return user.username == form.username
-		})
-		if (userRepeat) {
-			ElMessage({
-				type: 'error',
-				message: '用户名已被使用',
-				duration: 1500
-			})
-			return
-		}
-		register(form)
-		// Object.assign(form, { ...initForm }) //注册后是否在登录页输入框保存注册信息
+		ElMessage.error('用户名或密码错误')
+		return false
+	}
+}
+
+// 处理注册
+const handleRegister = async () => {
+	// 检查用户名是否已存在
+	const usernameExists = userStore.userList.some((user: { username: string; }) => user.username === form.username)
+	if (usernameExists) {
+		ElMessage.error('用户名已被使用')
+		return false
+	}
+
+	const success = await register(form)
+
+	if (success) {
 		fromRegister.value = true
-		ElMessage({
-			type: 'success',
-			message: '注册成功',
-			duration: 1500
-		})
+		ElMessage.success('注册成功')
 		await waitTime(600)
 		isLogin.value = true
+		return true
+	} else {
+		ElMessage.error('注册失败，请重试')
+		return false
+	}
+}
+
+// 主认证函数
+const handleAuth = async () => {
+	if (!validateInput()) return
+
+	try {
+		const success = isLogin.value
+			? await handleLogin()
+			: await handleRegister()
+
+		if (success) {
+			console.log(`${isLogin.value ? '登录' : '注册'}操作成功`)
+		}
+	} catch (error) {
+		console.error('认证操作失败:', error)
+		ElMessage.error('操作失败，请重试')
 	}
 }
 </script>

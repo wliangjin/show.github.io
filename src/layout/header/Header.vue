@@ -54,9 +54,13 @@
 				</div>
 			</div>
 		</div>
-		<el-dialog v-if="dialogVisible" v-model="dialogVisible" :close-on-click-modal="false" :z-index="999">
-			<Login :type="authType" @close-dialog="dialogVisible = false"></Login>
-		</el-dialog>
+		<!-- <el-dialog v-model="dialogVisible" :close-on-click-modal="false" :z-index="999"> -->
+		<Teleport to="body">
+			<Transition>
+				<Login v-if="dialogVisible" :type="authType" @close-dialog="dialogVisible = false"></Login>
+			</Transition>
+		</Teleport>
+		<!-- </el-dialog> -->
 	</header>
 </template>
 
@@ -92,6 +96,7 @@ const handleExit = async () => {
 	window.location.reload()
 }
 let key = 1001
+
 const navitems = [
 	{
 		key: key++,
@@ -179,5 +184,15 @@ header {
 	:deep(.el-dialog__header) {
 		display: none;
 	}
+}
+
+.v-enter-active,
+.v-leave-active {
+	transition: all 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
 }
 </style>
