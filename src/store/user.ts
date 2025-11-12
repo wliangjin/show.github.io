@@ -11,42 +11,7 @@ export const users = [
 		userid: 1001,
 		username: 'admin',
 		password: '999999'
-	},
-	{
-		userid: 1002,
-		username: 'wlau',
-		password: '21060733'
-	},
-	{
-		userid: 1003,
-		username: 'weiqiongjian',
-		password: '21060734'
-	},
-	{
-		userid: 1004,
-		username: 'liangzhong',
-		password: '21060634'
-	},
-	{
-		userid: 1004,
-		username: 'liangzhong',
-		password: '21060634'
-	},
-	{
-		userid: 1005,
-		username: 'xiewangfu',
-		password: '21060636'
-	},
-	{
-		userid: 1006,
-		username: 'weizonglin',
-		password: '21060746'
-	},
-	{
-		userid: 1007,
-		username: 'tangyinzhen',
-		password: '21060720'
-	},
+	}
 ]
 // localData.get('users') || localData.set('users', users)
 export const useUserStore = defineStore('user', () => {
