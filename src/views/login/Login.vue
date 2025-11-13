@@ -12,7 +12,10 @@
 			<div class="login_box">
 				<div class="content">
 					<div class="title">
-						<h2>账户{{ typeName }}</h2>
+						<Transition name="fade">
+							<h2 v-if="isLogin">用户登录</h2>
+							<h2 v-else>用户注册</h2>
+						</Transition>
 						<div class="circle" @click="emit('closeDialog')"><el-icon color="white">
 								<Close />
 							</el-icon></div>
@@ -195,4 +198,12 @@ const handleAuth = async () => {
 
 <style lang="less" scoped>
 @import url(./login.less);
+.fade-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
+	transform: translateX(30%);
+}
 </style>
